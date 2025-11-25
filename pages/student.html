@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">LMS Student</a>
+            <button class="btn btn-light btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2>My Courses</h2>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Web Development</h5>
+                        <p class="card-text">Learn HTML, CSS, and JS basics.</p>
+                        <div class="progress mb-3">
+                            <div class="progress-bar" style="width: 75%">75%</div>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Continue</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Database Systems</h5>
+                        <p class="card-text">Introduction to SQL and NoSQL.</p>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-warning" style="width: 40%">40%</div>
+                        </div>
+                        <button class="btn btn-primary btn-sm">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function logout() {
+            sessionStorage.clear(); // FR-2.3: Clear session
+            window.location.href = "../login.html"; // Redirect to login
+        }
+    </script>
+</body>
+</html>

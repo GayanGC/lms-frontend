@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructor Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">LMS Instructor</a>
+            <button class="btn btn-light btn-sm" onclick="logout()">Logout</button>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Manage Courses</h2>
+            <button class="btn btn-success">+ Add New Course</button>
+        </div>
+
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Enrolled Students</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Advanced Java</td>
+                    <td>45</td>
+                    <td><button class="btn btn-sm btn-primary">Edit</button></td>
+                </tr>
+                <tr>
+                    <td>Python for AI</td>
+                    <td>60</td>
+                    <td><button class="btn btn-sm btn-primary">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = "../login.html";
+        }
+    </script>
+</body>
+</html>
