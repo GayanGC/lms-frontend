@@ -1,43 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Check if user is logged in
+    // --------------------------------------------------------
+    // 1. Security Check (Is User Logged In?)
+    // --------------------------------------------------------
     const role = sessionStorage.getItem("userRole");
     const token = sessionStorage.getItem("authToken");
 
-    // ලොග් වෙලා නැත්නම් කෙලින්ම Login එකට එලවනවා
+    // If no role or token found, redirect to login page
     if (!role || !token) {
         window.location.href = "../login.html"; 
         return;
     }
 
-    // 2. Identify Current Page
+    // --------------------------------------------------------
+    // 2. Role-Based Access Control (RBAC)
+    // --------------------------------------------------------
     const path = window.location.pathname;
 
-    // 3. Role-Based Access Control (RBAC) Logic
-    // FR-2.2: Router guard prevents loading pages not assigned for the user role [cite: 50]
-    
-    // Admin පිටුවට යන්න හදනවා නම්, එයා Admin ද බලනවා
+    // Prevent non-admins from accessing admin page
     if (path.includes("admin.html") && role !== "Admin") {
         alert("Access Denied! You are not an Admin.");
         redirectToDashboard(role);
     }
     
-    // Instructor පිටුවට යන්න හදනවා නම්, එයා Instructor ද බලනවා
+    // Prevent non-instructors from accessing instructor page
     if (path.includes("instructor.html") && role !== "Instructor") {
         alert("Access Denied! You are not an Instructor.");
         redirectToDashboard(role);
     }
 
-    // Student පිටුවට යන්න හදනවා නම්, එයා Student ද බලනවා
+    // Prevent non-students from accessing student page
     if (path.includes("student.html") && role !== "Student") {
         alert("Access Denied! You are not a Student.");
         redirectToDashboard(role);
     }
+
+    // --------------------------------------------------------
+    // 3. Auto-Logout Logic (SR-10)
+    // --------------------------------------------------------
+    startSessionTimer();
 });
 
+// Helper function to redirect users to their correct dashboard
 function redirectToDashboard(role) {
-    // SR-5: Mismatch redirects to correct place or login [cite: 74]
     if (role === "Admin") window.location.href = "admin.html";
-    else if (role === "Instructor") window.location.href = "instructor.html";
-    else if (role === "Student") window.location.href = "student.html";
-    else window.location.href = "../login.html";
-}
+    else if
