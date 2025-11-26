@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/main.css">
+    
     <script src="../assets/js/router.js"></script>
 </head>
 <body>
-   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">LMS ADMIN</a>
-            <div class="d-flex gap-2"> <button class="btn btn-outline-light btn-sm" id="theme-toggle">🌙 Dark Mode</button>
+            <div class="d-flex gap-2"> 
+                <button class="btn btn-outline-light btn-sm" id="theme-toggle">🌙 Dark Mode</button>
                 <button class="btn btn-light btn-sm" onclick="logout()">Logout</button>
             </div>
         </div>
@@ -20,6 +22,7 @@
 
     <div class="container mt-4">
         <h2>System Overview</h2>
+        
         <div class="row mt-3">
             <div class="col-md-4">
                 <div class="card text-white bg-primary mb-3">
@@ -38,18 +41,75 @@
                 </div>
             </div>
         </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h3>Manage Users</h3>
+            <button class="btn btn-dark btn-sm">+ Add New User</button>
+        </div>
+
+        <table class="table table-hover table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>U-001</td>
+                    <td>Kamal Perera</td>
+                    <td><span class="badge bg-primary">Student</span></td>
+                    <td>Active</td>
+                    <td><button class="btn btn-sm btn-danger">Delete</button></td>
+                </tr>
+                <tr>
+                    <td>U-002</td>
+                    <td>Dr. Silva</td>
+                    <td><span class="badge bg-success">Instructor</span></td>
+                    <td>Active</td>
+                    <td><button class="btn btn-sm btn-danger">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-primary text-white">
+                <strong class="me-auto">🔔 System Notification</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                New system update (v1.0.2) is available. Check logs.
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../assets/js/theme.js"></script>
+
     <script>
         function logout() {
             sessionStorage.clear();
             window.location.href = "../login.html";
         }
+
+        // Show Toast Notification
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastElement = document.getElementById('liveToast');
+            const toast = new bootstrap.Toast(toastElement);
+            setTimeout(() => {
+                toast.show();
+            }, 1000);
+        });
+
+        // SR-13: Disable Right Click (New Feature)
+        document.addEventListener('contextmenu', event => event.preventDefault());
     </script>
-    <script src="../assets/js/router.js"></script>
-    
-    <script src="../assets/js/theme.js"></script>
-</body>
 </body>
 </html>
