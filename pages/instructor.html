@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instructor Dashboard</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/main.css">
 </head>
 <body>
-   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-dark bg-success">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">LMS Student</a>
-            <div class="d-flex gap-2"> <button class="btn btn-outline-light btn-sm" id="theme-toggle">🌙 Dark Mode</button>
+            <a class="navbar-brand" href="#">LMS Instructor</a>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-light btn-sm" id="theme-toggle">🌙 Dark Mode</button>
                 <button class="btn btn-light btn-sm" onclick="logout()">Logout</button>
             </div>
         </div>
@@ -20,11 +21,13 @@
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center">
             <h2>Manage Courses</h2>
-            <button class="btn btn-success">+ Add New Course</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+                + Add New Course
+            </button>
         </div>
 
-        <table class="table table-striped mt-3">
-            <thead>
+        <table class="table table-striped mt-3 table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>Course Name</th>
                     <th>Enrolled Students</th>
@@ -46,16 +49,72 @@
         </table>
     </div>
 
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <div class="modal fade" id="addCourseModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCourseForm">
+                        <div class="mb-3">
+                            <label for="courseName" class="form-label">Course Name</label>
+                            <input type="text" class="form-control" id="courseName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentCount" class="form-label">Enrolled Students (Initial)</label>
+                            <input type="number" class="form-control" id="studentCount" value="0">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" onclick="saveCourse()">Save Course</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="../assets/js/router.js"></script>
+    <script src="../assets/js/theme.js"></script>
+
     <script>
         function logout() {
             sessionStorage.clear();
             window.location.href = "../login.html";
         }
+
+        function saveCourse() {
+            const courseName = document.getElementById("courseName").value;
+            const studentCount = document.getElementById("studentCount").value;
+
+            if (courseName === "") {
+                alert("Please enter a course name!");
+                return;
+            }
+
+            const tableBody = document.querySelector("table tbody");
+            const newRow = `
+                <tr>
+                    <td>${courseName}</td>
+                    <td>${studentCount}</td>
+                    <td><button class="btn btn-sm btn-primary">Edit</button></td>
+                </tr>
+            `;
+            
+            tableBody.insertAdjacentHTML('beforeend', newRow);
+            document.getElementById("addCourseForm").reset();
+            
+            // Hide Modal
+            const modalElement = document.getElementById('addCourseModal');
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            modal.hide();
+
+            alert("Course Added Successfully!");
+        }
     </script>
-    <script src="../assets/js/router.js"></script>
-    <script src="../assets/js/router.js"></script>
-    <script src="../assets/js/theme.js"></script>
-</body>
 </body>
 </html>
