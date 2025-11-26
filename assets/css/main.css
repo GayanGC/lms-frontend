@@ -1,18 +1,19 @@
+/* Default (Light Mode) */
 body {
-    background-color: #f8f9fa; /* Light background */
+    background-color: #f8f9fa;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
+/* Dark Mode Override */
+[data-bs-theme="dark"] body {
+    background-color: #212529; /* Dark background */
+    color: #fff;
+}
+
+/* Card Styles fix for Dark Mode */
 .card {
     border-radius: 10px;
     border: none;
-}
-
-.btn-primary {
-    background-color: #0d6efd;
-    transition: background-color 0.3s;
-}
-
-.btn-primary:hover {
-    background-color: #0b5ed7;
+    transition: background-color 0.3s, color 0.3s;
 }
