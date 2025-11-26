@@ -3,40 +3,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const errorAlert = document.getElementById("error-alert");
 
     loginForm.addEventListener("submit", (e) => {
-        e.preventDefault(); // පිටුව Reload වීම නවත්වයි
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        // FR-1.1: Validation (සරල පරීක්ෂාවක්)
-        if (!email || !password) {
-            showError("Please enter both email and password.");
-            return;
-        }
-
-        // FR-1.2: Backend Request Simulating (Backend එකක් නැති නිසා අපි මෙහෙම හිතමු)
-        // අපි ඊමේල් එක බලලා Role එක තීරණය කරමු:
-        let role = "";
+        e.preventDefault(); // Prevent page reload on submit
         
-        if (email.includes("student")) {
+        // Get values and remove extra spaces
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        let role = "";
+
+        // Check hardcoded user credentials
+        if (email === "student@lms.com" && password === "student123") {
             role = "Student";
-        } else if (email.includes("instructor")) {
+        } else if (email === "instructor@lms.com" && password === "instructor123") {
             role = "Instructor";
-        } else if (email.includes("admin")) {
+        } else if (email === "admin@lms.com" && password === "admin123") {
             role = "Admin";
         } else {
-            // FR-1.4: Error Handling
-            showError("Invalid Email or Password! (Try: student@lms.com)");
+            // Show error if details are invalid
+            showError("Invalid Email or Password! Please try again.");
             return;
         }
 
-        // FR-1.3: Role & Token Storage
-        // සාර්ථක නම් Role එක sessionStorage එකේ සේව් කරනවා
+        // Login Successful
+        // 1. Save role and token to Session Storage (FR-1.3)
         sessionStorage.setItem("userRole", role);
-        sessionStorage.setItem("authToken", "fake-jwt-token-123");
+        sessionStorage.setItem("authToken", "fake-secure-token");
 
-        alert(`Login Successful as ${role}!`);
-
-        // FR-2.1: Role Routing (අදාළ පිටුවට යැවීම)
+        // 2. Redirect to specific dashboard based on role (FR-2.1)
         if (role === "Student") {
             window.location.href = "pages/student.html";
         } else if (role === "Instructor") {
@@ -46,8 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Function to display error messages
     function showError(message) {
         errorAlert.textContent = message;
-        errorAlert.classList.remove("d-none");
+        errorAlert.classList.remove("d-none"); // Show the alert box
+        
+        // Automatically hide the error after 3 seconds
+        setTimeout(() => {
+            errorAlert.classList.add("d-none");
+        }, 3000);
     }
 });
