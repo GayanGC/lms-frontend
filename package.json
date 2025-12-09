@@ -1,0 +1,17 @@
+{
+  "name": "edulms",
+  "version": "1.0.0",
+  "description": "Premium Learning Management System",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p 3001 -c-1",
+    "dev": "http-server -p 3001 -c-1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.0",
+    "bootstrap-icons": "^1.11.1"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
